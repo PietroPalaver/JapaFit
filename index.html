@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <title>Japa Fit</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #101114;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+    header { padding: 20px 0; }
+    h1 { font-size: 30px; margin: 0; }
+    h1 span { color: #55dc91; }
+    .sub { color: #999; margin-top: 8px; }
+    .card {
+      background: #1c1e24;
+      border: 1px solid #30333b;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+    h2 { font-size: 19px; margin-top: 0; }
+    label { display: block; color: #bbb; margin: 14px 0 7px; }
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 9px;
+      border: 1px solid #393d46;
+      background: #111318;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #55dc91;
+      color: #101114;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 16px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #252a2b;
+      line-height: 1.7;
+      display: none;
+    }
+    .green { color: #55dc91; }
+    footer { color: #777; text-align: center; padding: 25px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Japa <span>Fit.</span></h1>
+    <p class="sub">Sua evolução começa aqui.</p>
+  </header>
+
+  <section class="card">
+    <h2>📊 Calculadora de IMC</h2>
+
+    <label for="peso">Peso atual (kg)</label>
+    <input id="peso" type="number" step="0.1" placeholder="Ex.: 92">
+
+    <label for="altura">Altura (cm)</label>
+    <input id="altura" type="number" placeholder="Ex.: 174">
+
+    <button onclick="calcular()">Calcular meu IMC</button>
+
+    <div class="result" id="resultado"></div>
+  </section>
+
+  <section class="card">
+    <h2>🎯 Seu objetivo</h2>
+    <p class="sub">Cada passo conta. Em breve você poderá acompanhar suas metas, alimentação, água e atividades físicas por aqui.</p>
+    <p class="green">Projeto Japa Fit — versão 0.1</p>
+  </section>
+
+  <footer>Feito para evoluir. 💪</footer>
+
+  <script>
+    function calcular() {
+      const peso = Number(document.getElementById("peso").value);
+      const altura = Number(document.getElementById("altura").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!peso || !altura || peso <= 0 || altura <= 0) {
+        alert("Preencha seu peso e sua altura corretamente.");
+        return;
+      }
+
+      const alturaM = altura / 100;
+      const imc = peso / (alturaM * alturaM);
+
+      let classificacao = "Obesidade";
+      if (imc < 18.5) classificacao = "Abaixo do peso";
+      else if (imc < 25) classificacao = "Peso adequado";
+      else if (imc < 30) classificacao = "Sobrepeso";
+      else if (imc < 35) classificacao = "Obesidade grau I";
+      else if (imc < 40) classificacao = "Obesidade grau II";
+
+      resultado.style.display = "block";
+      resultado.innerHTML =
+        "<strong>Seu IMC:</strong> " + imc.toFixed(1) +
+        "<br><strong>Classificação:</strong> " + classificacao;
+    }
+  </script>
+</body>
+</html>
